@@ -32,7 +32,7 @@ export B2_ACCOUNT_KEY={{ restic_repos[item.repo].b2_account_key }}
 {% if item.src is defined %}
 BACKUP_SOURCE={{ item.src }}
 {% endif %}
-set -uxo pipefail
+set -uo pipefail
 {#
   Define Tags
 #}

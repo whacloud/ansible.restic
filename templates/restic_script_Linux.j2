@@ -74,6 +74,11 @@ set -uo pipefail
   {% if repo.keep_monthly is defined and repo.keep_monthly != None %}--keep-monthly {{ item.keep_monthly }}{% endif %} \
   {% if repo.keep_yearly is defined and repo.keep_yearly != None %}--keep-yearly {{ item.keep_yearly }}{% endif %} \
   {% if repo.keep_within is defined and repo.keep_within != None %}--keep-within {{ item.keep_within }}{% endif %} \
+  {% if repo.keep_within_hourly is defined and repo.keep_within_hourly != None %}--keep-within-hourly {{ item.keep_within_hourly }}{% endif %} \
+  {% if repo.keep_within_daily is defined and repo.keep_within_daily != None %}--keep-within-daily {{ item.keep_within_daily }}{% endif %} \
+  {% if repo.keep_within_weekly is defined and repo.keep_within_weekly != None %}--keep-within-weekly {{ item.keep_within_weekly }}{% endif %} \
+  {% if repo.keep_within_monthly is defined and repo.keep_within_monthly != None %}--keep-within-monthly {{ item.keep_within_monthly }}{% endif %} \
+  {% if repo.keep_within_yearly is defined and repo.keep_within_yearly != None %}--keep-within-yearly {{ item.keep_within_yearly }}{% endif %} \
   {% if repo.keep_tag is defined and (repo.keep_tag|length>0) %}{{ keep_tags(repo.keep_tag) }}{% endif %}
 {%- endmacro %}
 

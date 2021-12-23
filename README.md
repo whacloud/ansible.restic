@@ -135,7 +135,7 @@ Repository defined in `restic_repos`.
 Available variables:
 
 | Name               | Required (Default)            | Description                                                                                                                                                                  |
-| ------------------ |:-----------------------------:| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|--------------------|:-----------------------------:|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `name`             | yes                           | The name of this backup. Used together with pruning and scheduling and needs to be unique.                                                                                   |
 | `repo`             | yes                           | The name of the repository to backup to.                                                                                                                                     |
 | `src`              | yes                           | The source directory or file                                                                                                                                                 |
@@ -151,6 +151,7 @@ Available variables:
 | `keep_yearly `     | no                            | If set, only keeps the last n yearly snapshots.                                                                                                                              |
 | `keep_within`      | no                            | If set, only keeps snapshots in this time period.                                                                                                                            |
 | `keep_tag`         | no                            | If set, keep snapshots with this tags. Make sure to specify a list.                                                                                                          |
+| `forget`           | no (`false`)                  | If `true`, the `restic forget` command runs at the end of every backup                                                                                                            |
 | `prune`            | no (`false`)                  | If `true`, the `restic forget` command in the script has the [`--prune` option](https://restic.readthedocs.io/en/stable/060_forget.html#removing-backup-snapshots) appended. |
 | `scheduled`        | no (`false`)                  | If `restic_create_cron` is set to `true`, this backup is scheduled.                                                                                                          |
 | `schedule_minute`  | no (`*`)                      | Minute when the job is run. ( 0-59, *, */2, etc )                                                                                                                            |

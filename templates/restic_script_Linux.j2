@@ -134,11 +134,11 @@ fi
 if [[ $? -eq 0 ]]
 then
     # write to both stdout and log
-    echo "$(date -u '+%Y-%m-%d %H:%M:%S') OK: backup $BACKUP_SOURCE completed successfully" | tee -a {{ backup_result_log }}
+    echo "$(date -u '+%Y-%m-%d %H:%M:%S') OK: backup $BACKUP_NAME $BACKUP_SOURCE completed successfully" | tee -a {{ backup_result_log }}
 else
     # write to log and to stderr
-    echo "$(date -u '+%Y-%m-%d %H:%M:%S') ERROR: backup $BACKUP_SOURCE completed with errors" >> {{ backup_result_log }}
-    echo "$(date -u '+%Y-%m-%d %H:%M:%S') ERROR: backup $BACKUP_SOURCE completed with errors" >&2
+    echo "$(date -u '+%Y-%m-%d %H:%M:%S') ERROR: backup $BACKUP_NAME $BACKUP_SOURCE completed with errors" >> {{ backup_result_log }}
+    echo "$(date -u '+%Y-%m-%d %H:%M:%S') ERROR: backup $BACKUP_NAME $BACKUP_SOURCE completed with errors" >&2
 fi
 
 {#
@@ -148,9 +148,9 @@ fi
 {{ restic_install_path }}/restic forget {{ hostname(item.hostname) }} --path {{ path(item) }} {{ retention_pattern(item) }} {% if item.prune is defined and item.prune == true %}--prune{% endif %} | tee {{ forget_output_log }}
 if [[ $? -eq 0 ]]
 then
-    echo "$(date -u '+%Y-%m-%d %H:%M:%S') OK: forget $BACKUP_SOURCE completed successfully" | tee -a {{ forget_result_log }}
+    echo "$(date -u '+%Y-%m-%d %H:%M:%S') OK: forget $BACKUP_NAME $BACKUP_SOURCE completed successfully" | tee -a {{ forget_result_log }}
 else
-    echo "$(date -u '+%Y-%m-%d %H:%M:%S') ERROR: forget $BACKUP_SOURCE completed with errors" >> {{ forget_result_log }}
-    echo "$(date -u '+%Y-%m-%d %H:%M:%S') ERROR: forget $BACKUP_SOURCE completed with errors" >&2
+    echo "$(date -u '+%Y-%m-%d %H:%M:%S') ERROR: forget $BACKUP_NAME $BACKUP_SOURCE completed with errors" >> {{ forget_result_log }}
+    echo "$(date -u '+%Y-%m-%d %H:%M:%S') ERROR: forget $BACKUP_NAME $BACKUP_SOURCE completed with errors" >&2
 fi
 {% endif %}

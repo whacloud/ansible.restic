@@ -107,6 +107,24 @@ set -uo pipefail
         {% endfor %}
     {% endif %}
 {% endmacro %}
+
+{#
+  Wait if repo is locked
+#}
+while true
+do
+    num_locks=$({{ restic_install_path }}/restic list locks --no-lock | wc -l)
+    if [[ $num_locks -gt 0 ]]
+    then
+        echo "$(date -u '+%Y-%m-%d %H:%M:%S') WAITING: repo $RESTIC_REPOSITORY is locked" | tee -a {{ backup_output_log }}
+        sleep 59
+    else
+        echo "$(date -u '+%Y-%m-%d %H:%M:%S') OK: repo $RESTIC_REPOSITORY is open" | tee -a {{ backup_output_log }}
+        break
+    fi
+done
+
+
 {#
   Define backup commands
 #}
@@ -140,6 +158,22 @@ else
     echo "$(date -u '+%Y-%m-%d %H:%M:%S') ERROR: backup $BACKUP_NAME $BACKUP_SOURCE completed with errors" >> {{ backup_result_log }}
     echo "$(date -u '+%Y-%m-%d %H:%M:%S') ERROR: backup $BACKUP_NAME $BACKUP_SOURCE completed with errors" >&2
 fi
+
+{#
+  Wait if repo is locked
+#}
+while true
+do
+    num_locks=$({{ restic_install_path }}/restic list locks --no-lock | wc -l)
+    if [[ $num_locks -gt 0 ]]
+    then
+        echo "$(date -u '+%Y-%m-%d %H:%M:%S') WAITING: repo $RESTIC_REPOSITORY is locked" | tee -a {{ forget_output_log }}
+        sleep 59
+    else
+        echo "$(date -u '+%Y-%m-%d %H:%M:%S') OK: repo $RESTIC_REPOSITORY is open" | tee -a {{ forget_output_log }}
+        break
+    fi
+done
 
 {#
   Define stdin forget commands

@@ -153,6 +153,10 @@ if [[ $? -eq 0 ]]
 then
     # write to both stdout and log
     echo "$(date -u '+%Y-%m-%d %H:%M:%S') OK: backup $BACKUP_NAME $BACKUP_SOURCE completed successfully" | tee -a {{ backup_result_log }}
+elif [[ $? -eq 3 ]]
+then
+    # write to both stdout and log
+    echo "$(date -u '+%Y-%m-%d %H:%M:%S') WARNING: backup $BACKUP_NAME $BACKUP_SOURCE completed with non-fatal error" | tee -a {{ backup_result_log }}
 else
     # write to log and to stderr
     echo "$(date -u '+%Y-%m-%d %H:%M:%S') ERROR: backup $BACKUP_NAME $BACKUP_SOURCE completed with errors" >> {{ backup_result_log }}
